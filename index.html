@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B Baskets Store</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        .store-container { display: flex; justify-content: center; flex-wrap: wrap; }
+        .basket { border: 1px solid #ccc; padding: 20px; margin: 10px; width: 200px; }
+        button { padding: 10px; margin-top: 10px; cursor: pointer; }
+        #cart { margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h2>Welcome to B Baskets Store</h2>
+    <div class="store-container">
+        <div class="basket" data-name="Birthday Basket" data-price="25">
+            <h3>Birthday Basket</h3>
+            <p>Price: $25</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="basket" data-name="Valentine's Basket" data-price="30">
+            <h3>Valentine's Basket</h3>
+            <p>Price: $30</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="basket" data-name="Christmas Basket" data-price="40">
+            <h3>Christmas Basket</h3>
+            <p>Price: $40</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+    </div>
+
+    <h2>Your Cart</h2>
+    <ul id="cart"></ul>
+    <h3>Total: $<span id="total">0</span></h3>
+
+    <script>
+        let cart = [];
+        let totalPrice = 0;
+
+        function addToCart(button) {
+            let basket = button.parentElement;
+            let name = basket.getAttribute("data-name");
+            let price = parseFloat(basket.getAttribute("data-price"));
+            
+            cart.push({ name, price });
+            totalPrice += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartList = document.getElementById("cart");
+            let totalElement = document.getElementById("total");
+            
+            cartList.innerHTML = "";
+            cart.forEach(item => {
+                let li = document.createElement("li");
+                li.innerText = ${item.name} - $${item.price};
+                cartList.appendChild(li);
+            });
+            
+            totalElement.innerText = totalPrice;
+        }
+    </script>
+</body>
+</html>
